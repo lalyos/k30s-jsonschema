@@ -1,0 +1,48 @@
+---
+text: !type {
+  type: string,
+  minLength: 1
+}
+textlist:
+- !ref text
+fourchar: !type {
+  type: string,
+  minLength: 4,
+  maxLength: 4
+}
+map: !type {
+}
+datasources: !enum [aws,gcp,openstack,packet,scaleway,vultr,cdrom]
+---
+ssh_authorized_keys?: !ref textlist
+write_files?:
+hostname?: !ref text
+run_cmd?:  !ref textlist
+boot_cmd?: !ref textlist
+init_cmd?: !ref textlist
+write_files?:
+- encoding?: !type string
+  content?: !ref text
+  owner?: !ref text
+  path?: !ref text
+  permissions?: !ref fourchar
+  -: false
+k3os?:
+  password?: !ref text
+  server_url?: !ref text
+  token?: !ref text
+  data_sources?: 
+  - !ref datasources
+  dns_nameservers?: !ref textlist
+  k3s_args?: !ref textlist
+  modules?: !ref textlist
+  ntp_servers?: !ref textlist
+  taints?: !ref textlist
+  modules?: !ref textlist
+  environment?: !ref map
+  labels?: !ref map
+  sysctl?: !ref map
+  wifi?:
+  - name: !ref text
+    passphrase?: !ref text
+  -: false

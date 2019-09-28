@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "datasources": {
+      "enum": [
+        "aws",
+        "gcp",
+        "openstack",
+        "packet",
+        "scaleway",
+        "vultr",
+        "cdrom"
+      ]
+    },
+    "fourchar": {
+      "maxLength": 4,
+      "minLength": 4,
+      "type": "string"
+    },
+    "map": {},
+    "text": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "textlist": {
+      "items": {
+        "$ref": "#/definitions/text"
+      },
+      "type": "array"
+    }
+  },
+  "properties": {
+    "boot_cmd": {
+      "$ref": "#/definitions/textlist"
+    },
+    "hostname": {
+      "$ref": "#/definitions/text"
+    },
+    "init_cmd": {
+      "$ref": "#/definitions/textlist"
+    },
+    "k3os": {
+      "additionalProperties": false,
+      "properties": {
+        "data_sources": {
+          "items": {
+            "$ref": "#/definitions/datasources"
+          },
+          "type": "array"
+        },
+        "dns_nameservers": {
+          "$ref": "#/definitions/textlist"
+        },
+        "environment": {
+          "$ref": "#/definitions/map"
+        },
+        "k3s_args": {
+          "$ref": "#/definitions/textlist"
+        },
+        "labels": {
+          "$ref": "#/definitions/map"
+        },
+        "modules": {
+          "$ref": "#/definitions/textlist"
+        },
+        "ntp_servers": {
+          "$ref": "#/definitions/textlist"
+        },
+        "password": {
+          "$ref": "#/definitions/text"
+        },
+        "server_url": {
+          "$ref": "#/definitions/text"
+        },
+        "sysctl": {
+          "$ref": "#/definitions/map"
+        },
+        "taints": {
+          "$ref": "#/definitions/textlist"
+        },
+        "token": {
+          "$ref": "#/definitions/text"
+        },
+        "wifi": {
+          "items": {
+            "properties": {
+              "name": {
+                "$ref": "#/definitions/text"
+              },
+              "passphrase": {
+                "$ref": "#/definitions/text"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "run_cmd": {
+      "$ref": "#/definitions/textlist"
+    },
+    "ssh_authorized_keys": {
+      "$ref": "#/definitions/textlist"
+    },
+    "write_files": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "content": {
+            "$ref": "#/definitions/text"
+          },
+          "encoding": {
+            "type": "string"
+          },
+          "owner": {
+            "$ref": "#/definitions/text"
+          },
+          "path": {
+            "$ref": "#/definitions/text"
+          },
+          "permissions": {
+            "$ref": "#/definitions/fourchar"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}
