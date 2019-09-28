@@ -23,12 +23,12 @@ So I've created a json schema for k3os config. Features:
 - enums are defined (actually i found only one: datasources)
 
 To get it working: in the command palette (view/command palette) type:
-**>Preferences:Open Settings (JSON)**
+**>Preferences:Open Settings (JSON)**, and near the bottom, add the following lines:
 
 ```
 
  "yaml.schemas": {
-        "https://gist.githubusercontent.com/lalyos/xxxxx.json": "k3s.yaml"
+        "https://raw.githubusercontent.com/lalyos/k30s-jsonschema/master/k3os-yajson.json": "k3s.yaml"
   }
 ```
 
@@ -111,9 +111,25 @@ name: !type {
   minLength: 4
 }
 ```
-For an integer 
 
-Creating the 
+### Reuse types
+
+If the are common types, and you dont want to copy/paste, you can create an
+optional first yaml document with type definitions. Than the 2. part can use them 
+as `!ref customptype`
+
+```
+strlist:
+- !type string
+small: !type {
+   type: integer
+   max: 9
+}
+---
+name: !type string
+arms: !ref small
+cv: !ref strlist
+```
 
 ## DSL based generation
 
