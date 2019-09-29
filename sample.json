@@ -1,0 +1,76 @@
+{
+  "boot_cmd": [
+    "echo hi && echo bye"
+  ],
+  "hostname": "myhost",
+  "init_cmd": [
+    "echo hi && echo bye"
+  ],
+  "k3os": {
+    "data_sources": [
+      "aws",
+      "cdrom"
+    ],
+    "dns_nameservers": [
+      "8.8.8.8",
+      "1.1.1.1"
+    ],
+    "environment": {
+      "http_proxy": "http://myserver",
+      "http_proxys": "http://myserver"
+    },
+    "k3s_args": [
+      "server",
+      "--disable-agent"
+    ],
+    "labels": {
+      "region": "us-west-1",
+      "somekey": "somevalue"
+    },
+    "modules": [
+      "kvm",
+      "nvme"
+    ],
+    "ntp_servers": [
+      "0.us.pool.ntp.org",
+      "1.us.pool.ntp.org"
+    ],
+    "password": "rancher",
+    "server_url": "https://someserver:6443",
+    "sysctl": {
+      "kernel.kptr_restrict": 1,
+      "kernel.printk": "4 4 1 7"
+    },
+    "taints": [
+      "key1=value1:NoSchedule",
+      "key1=value1:NoExecute"
+    ],
+    "token": "TOKEN_VALUE",
+    "wifi": [
+      {
+        "name": "home",
+        "passphrase": "mypassword"
+      },
+      {
+        "name": "nothome",
+        "passphrase": "somethingelse"
+      }
+    ]
+  },
+  "run_cmd": [
+    "echo hi && echo bye"
+  ],
+  "ssh_authorized_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQAB",
+    "github:ibuildthecloud"
+  ],
+  "write_files": [
+    {
+      "content": "#!/bin/bash\necho hi",
+      "encoding": "",
+      "owner": "root",
+      "path": "/etc/rc.local",
+      "permissions": "0755"
+    }
+  ]
+}
