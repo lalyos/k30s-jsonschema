@@ -4,27 +4,14 @@ Its really frustrating to edit yaml files without a schema. I burned myslef by t
 so the tooling for json schema validation can be used for yaml as well.
 
 VisualStudio Code has a [yaml extension](https://github.com/redhat-developer/vscode-yaml)
-which supports json schemas.
+which supports json schemas. We just need to add one more extra schema, for k3os.
 
-So what this is the process:
+## Installation
+
 - Install [VSCode](https://code.visualstudio.com/download)
 - Install [Yaml extension](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
-- Define a json schema for k3os config (see below)
-
-![demo](k3os-schema.gif)
-
-## For the impatient
-
-So I've created a json schema for k3os config. Features:
-
-- all elements are optional
-- no extra elements are allowed (misstyping is catched)
-- type safe elements (no more accidental space in ssh_authorized_keys)
-- enums are defined (actually i found only one: datasources)
-
-To get it working: in the command palette (view/command palette) type:
+- Open command palette in VSCode (view/command palette) type:
 **>Preferences:Open Settings (JSON)**, and near the bottom, add the following lines:
-
 ```
 
  "yaml.schemas": {
@@ -32,10 +19,24 @@ To get it working: in the command palette (view/command palette) type:
   }
 ```
 
+If you already working with k8s you probably already installed the yaml extension (or you should), so only the last stepp is needed.
+
+## Demo 
+
+![demo](k3os-schema.gif)
+
+Features:
+
+- all elements are optional
+- no extra elements are allowed (misstyping is catched)
+- type safe elements (no more accidental space in ssh_authorized_keys)
+- enums are defined (actually i found only one: datasources)
+
 ## Explanation of the DSL
 
-[Yajsonschema](https://github.com/wryun/yajsonschema) Is a compact DSL for describing a json schema.
-Instead of using the "standard" verbose json format, it uses a short ... khmmm ... yaml syntax. 
+So the final json schema is [k3os-yajson.json](k3os-yajson.json) which is generate from [k3os-yajson.yaml](k3os-yajson.yaml). This is 48 lines are describing k3os config structure. First I've tried to create the json schema directly, but it was to verbose, and found a nice tool/format:
+
+[Yajsonschema](https://github.com/wryun/yajsonschema) Is a compact DSL for describing a json schema. Instead of using the "standard" verbose json format, it uses a short ... khmmm ... yaml syntax. 
 
 (yep we are in the process to create a schema for a yaml, but first we convert it to json, because json
 has a formal json schema definition, but we will generate the schema from a yaml ...)
